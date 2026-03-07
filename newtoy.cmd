@@ -36,8 +36,8 @@ IF /I "%~2"=="python" (
 	type nul > "LICENSE"
 
 	IF /I "%~3"=="--agentic" (
-		call :WRITE_CONTEXT "%~1\CONTEXT.md"
-		call :WRITE_AGENTS "%~1\AGENTS.md"
+		call :WRITE_CONTEXT "CONTEXT.md"
+		call :WRITE_AGENTS "AGENTS.md"
 	)
 
 	popd
