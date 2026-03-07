@@ -19,6 +19,7 @@ REM - Future Additions: Node/NPM, Next-JS, Vite
 REM - If command is ran raw, 'newtoy', print out usage
 
 IF /I "%~1" == "" GOTO :USAGE
+IF /I "%~2" == "" GOTO :USAGE
 IF /I "%~1" == "help" GOTO :USAGE
 
 REM Python
@@ -38,11 +39,17 @@ IF /I "%~2"=="python" (
 	IF /I "%~3"=="--agentic" (
 		call :WRITE_CONTEXT "CONTEXT.md"
 		call :WRITE_AGENTS "AGENTS.md"
+	) ELSE (
+		IF NOT "%~3"=="" (
+			GOTO :INVALID_ARG
+		)
 	)
 
 	popd
 	echo [+] Created Python project folder: "%1"
 	exit /b 0
+) ELSE (
+	GOTO :INVALID_ARG
 )
 
 REM Node
@@ -106,10 +113,11 @@ REM Write AGENTS.md File
 exit /b 0
 
 REM Invalid argument / unknown flag
+:INVALID_ARG
 echo.
 echo =============== [Newtoy] ===============
 echo.
-echo ERROR: Invalid argument: %~1
+echo ERROR: Invalid argument
 echo.
 echo Usage:
 echo   newtoy ^<project_name^> ^<project_type^> [flags]
